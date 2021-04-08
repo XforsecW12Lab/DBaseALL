@@ -80,13 +80,13 @@ class baseAll:
                     # checkPrintTable
                     if str(res).isprintable():
                         isprintTableList.append(index)
-                    print(colored('+' + '=' * lineLength + '+',lineColor))
+                    print(colored('\n+' + '=' * lineLength + '+\n',lineColor))
 
                 except Exception as ex:
                     # 失败友好打印
                     print(colored('Can Not Decode On This Base! Error:',lineColor))
                     print(colored(ex.args[0],'blue'))
-                    print(colored('+' + '=' * lineLength + '+', lineColor))
+                    print(colored('\n+' + '=' * lineLength + '+\n', lineColor))
         else:
             newAlphabetLen = len(alphabet)
             # 根据长度判断alphabet
