@@ -13,7 +13,7 @@ class baseAll:
             base64._b85alphabet,                                                                            # base85_ab
             r"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",                            # base64_ab
             base62.CHARSET_DEFAULT,                                                                         # base62_ab
-            base58.BITCOIN_ALPHABET,                                                                        # base58_ab
+            base58.BITCOIN_ALPHABET,                                                                         # base58_ab
             base36.alphabet,                                                                                # base36_ab
             base64._b32alphabet,                                                                            # base32_ab
             r"0123456789abcdef"                                                                             # base16_ab
@@ -32,26 +32,26 @@ class baseAll:
         ]
         '''
         self.baseDecodeFunc = [
-            base64.b16decode,
-            base64.b32decode,
-            base36.loads,
-            base58.b58decode,
-            base62.decodebytes,
-            base64.b64decode,
-            base64.b85decode,
+            base92.decode,
             base91.decode,
-            base92.decode
+            base64.b85decode,
+            base64.b64decode,
+            base62.decodebytes,
+            base58.b58decode,
+            base36.loads,
+            base64.b32decode,
+            base64.b16decode,
         ]
         self.infoList = [
-            'Base'+colored('16','red',attrs=['bold']),
-            'Base'+colored('32','red',attrs=['bold']),
-            'Base'+colored('36','red',attrs=['bold']),
-            'Base'+colored('58','red',attrs=['bold']),
-            'Base'+colored('62','red',attrs=['bold']),
-            'Base'+colored('64','red',attrs=['bold']),
-            'Base'+colored('85','red',attrs=['bold']),
+            'Base'+colored('92','red',attrs=['bold']),
             'Base'+colored('91','red',attrs=['bold']),
-            'Base'+colored('92','red',attrs=['bold'])
+            'Base'+colored('85','red',attrs=['bold']),
+            'Base'+colored('64','red',attrs=['bold']),
+            'Base'+colored('62','red',attrs=['bold']),
+            'Base'+colored('58','red',attrs=['bold']),
+            'Base'+colored('36','red',attrs=['bold']),
+            'Base'+colored('32','red',attrs=['bold']),
+            'Base'+colored('16','red',attrs=['bold']),
         ]
 
     def baseDecodeAll(self,decodeStr:str,alphabet:str=None):
@@ -94,7 +94,9 @@ class baseAll:
                 if newAlphabetLen == len(oneAb):
                     # 尝试转换后进行decode
                     print('May '+self.infoList[index]+' alphabet. Try to Translate And Decode:')
-                    trans = str.maketrans(alphabet,self.baseAbDict[index])
+                    if type(oneAb) == bytes :
+                        oneAb = bytes.decode(oneAb)
+                    trans = str.maketrans(alphabet,oneAb)
                     # 尝试对应解码
                     res = self.baseDecodeFunc[index](decodeStr.translate(trans))
                     # 友好打印
@@ -114,7 +116,6 @@ class baseAll:
                 print(self.infoList[oneIndex] + ' : ' + colored(flagList[index],'yellow',attrs=['bold']))
             print(colored('*' * 64, 'red', attrs=['bold']))
 
-
 def banner():
     print(colored(r'''
 
@@ -126,7 +127,6 @@ def banner():
 ╚═════╝     ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝  w12
 ''','red',attrs=['bold']))
     print(colored('Can use args to do it. Like: BaseAll.py ZmxhZ2FzZGZhc2RmYXNkZg== {{alphabet}}','yellow',attrs=['bold']))
-
 
 if __name__ == '__main__':
     banner()
